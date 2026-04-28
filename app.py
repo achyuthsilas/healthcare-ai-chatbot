@@ -49,7 +49,7 @@ if "messages" not in st.session_state:
 # ---------- Sidebar ----------
 with st.sidebar:
     st.header("🩺 Healthcare AI")
-    st.caption("Powered by Anthropic Claude")
+    st.caption("Powered by AI")
     st.divider()
 
     if st.button("🆕 New conversation", use_container_width=True):

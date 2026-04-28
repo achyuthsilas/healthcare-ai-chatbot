@@ -75,3 +75,9 @@ class ChatStorage:
                 (limit,),
             ).fetchall()
         return [(r["session_id"], r["first_msg"] or "(empty)", r["last_ts"]) for r in rows]
+    def clear_all(self) -> int:
+        """Delete all messages from the database. Returns count of messages deleted."""
+        with self._conn() as c:
+            count = c.execute("SELECT COUNT(*) FROM messages").fetchone()[0]
+            c.execute("DELETE FROM messages")
+        return count

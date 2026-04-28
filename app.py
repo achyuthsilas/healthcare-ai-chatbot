@@ -49,7 +49,7 @@ if "messages" not in st.session_state:
 # ---------- Sidebar ----------
 with st.sidebar:
     st.header("🩺 Healthcare AI")
-    st.caption("Powered by AI")
+    st.caption("Powered by Anthropic Claude")
     st.divider()
 
     if st.button("🆕 New conversation", use_container_width=True):
@@ -68,6 +68,34 @@ with st.sidebar:
             st.session_state.session_id = sess_id
             st.session_state.messages = storage.get_messages(sess_id)
             st.rerun()
+
+    # ============ NEW: CLEAR ALL DATA SECTION ============
+    st.divider()
+    
+    # Use session state to track confirmation
+    if "confirm_clear" not in st.session_state:
+        st.session_state.confirm_clear = False
+
+    if not st.session_state.confirm_clear:
+        if st.button("🗑️ Clear all conversations", use_container_width=True):
+            st.session_state.confirm_clear = True
+            st.rerun()
+    else:
+        st.warning("⚠️ This will delete ALL your chats. Are you sure?")
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("Yes, delete", use_container_width=True, type="primary"):
+                count = storage.clear_all()
+                st.session_state.session_id = str(uuid.uuid4())
+                st.session_state.messages = []
+                st.session_state.confirm_clear = False
+                st.success(f"✓ Deleted {count} messages")
+                st.rerun()
+        with col2:
+            if st.button("Cancel", use_container_width=True):
+                st.session_state.confirm_clear = False
+                st.rerun()
+    # =====================================================
 
     st.divider()
     st.caption(f"Session ID: `{st.session_state.session_id[:8]}…`")

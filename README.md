@@ -2,6 +2,8 @@
 
 A streaming chatbot that answers general health questions using **Groq's free Llama API** (Llama 3.3 70B), with **persistent chat history** (SQLite) and a lightweight **RAG layer** (TF-IDF over local Markdown files).
 
+<img width="1266" height="706" alt="Screenshot 2026-05-15 183410" src="https://github.com/user-attachments/assets/1a651181-b47e-48d8-a077-63eff008521f" />
+
 > ⚠️ For information only. Not a substitute for professional medical advice.
 
 ---
